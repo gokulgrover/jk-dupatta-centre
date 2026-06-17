@@ -29,8 +29,8 @@ function ShopByOccasion() {
   ];
 
   return (
-    <section className="py-24 bg-[#faf7f4]">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-12 md:py-16 lg:py-24 bg-[#faf7f4]">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
 
         <div className="text-center mb-14">
 
@@ -38,13 +38,13 @@ function ShopByOccasion() {
             Explore
           </p>
 
-          <h2 className="text-5xl font-serif mt-3">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif mt-3">
             Shop By Occasion
           </h2>
 
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
 
           {occasions.map((item, index) => (
             <div
@@ -56,7 +56,7 @@ function ShopByOccasion() {
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-[350px] object-cover transition duration-500 group-hover:scale-110"
+                  className="w-full h-[250px] sm:h-[300px] md:h-[350px] object-cover transition duration-500 group-hover:scale-110"
                 />
 
               </div>

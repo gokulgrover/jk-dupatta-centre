@@ -32,10 +32,10 @@ function HeroBanner() {
 
   return (
     <section>
-      <div className="grid grid-cols-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12">
 
         {/* Left Sidebar */}
-        <div className="col-span-3 bg-white border-r p-8">
+        <div className="lg:col-span-3 bg-white border-r p-4 md:p-6 lg:p-8">
           <ul className="space-y-6 text-gray-700">
 
             <li className="cursor-pointer hover:text-[#6e4352]">
@@ -78,16 +78,16 @@ function HeroBanner() {
         </div>
 
         {/* Banner Slider */}
-        <div className="col-span-9 relative overflow-hidden">
+        <div className="lg:col-span-9 relative overflow-hidden">
 
           <img
             src={banners[currentSlide]}
             alt="Banner"
-            className="w-full h-full object-cover"
+            className="w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-full object-cover"
           />
 
           {/* Bottom Navigation */}
-          <div className="absolute bottom-0 right-0 bg-white px-8 py-5 rounded-tl-3xl flex items-center gap-6">
+          <div className="absolute bottom-0 right-0 bg-white px-4 md:px-8 py-3 md:py-5 rounded-tl-2xl md:rounded-tl-3xl flex items-center gap-3 md:gap-6">
 
             <button onClick={prevSlide}>
               <FiChevronLeft size={20} />

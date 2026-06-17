@@ -22,9 +22,9 @@ Quantity: ${qty}
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-20">
+    <section className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-16 lg:py-20">
 
-      <div className="grid md:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
 
         {/* Image */}
 
@@ -44,11 +44,11 @@ Quantity: ${qty}
             Cotton Dupatta
           </p>
 
-          <h1 className="text-4xl font-serif mt-2">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif mt-2">
             Floral Cotton Dupatta
           </h1>
 
-          <p className="mt-4 text-2xl font-semibold text-[#6e4352]">
+          <p className="mt-4 text-xl md:text-2xl font-semibold text-[#6e4352]">
             ₹799
           </p>
 
@@ -59,7 +59,7 @@ Quantity: ${qty}
 
           {/* Quantity */}
 
-          <div className="flex items-center gap-4 mt-8">
+          <div className="flex items-center gap-3 md:gap-4 mt-6 md:mt-8">
 
             <button
               onClick={() =>
@@ -83,7 +83,7 @@ Quantity: ${qty}
 
           {/* Buttons */}
 
-          <div className="flex gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row gap-4 mt-8">
 
             <button className="border px-8 py-4">
               ❤️ Like

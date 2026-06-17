@@ -39,9 +39,9 @@ function NewArrivals() {
   ];
 
   return (
-    <section className="py-20">
+    <section className="py-10 md:py-16 lg:py-20">
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
 
         <div className="text-center mb-12">
 
@@ -49,13 +49,13 @@ function NewArrivals() {
             Latest Collection
           </p>
 
-          <h2 className="text-4xl font-serif mt-3">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif mt-3">
             New Arrivals
           </h2>
 
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
 
           {products.map((product) => (
             <ProductCard

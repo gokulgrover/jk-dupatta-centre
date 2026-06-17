@@ -15,11 +15,11 @@ function ProductCard({
         <img
           src={image}
           alt={name}
-          className="w-full h-[380px] object-cover transition duration-500 group-hover:scale-105"
+          className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[380px] object-cover transition duration-500 group-hover:scale-105"
         />
 
         {/* Wishlist */}
-        <button className="absolute top-4 right-4 bg-white p-2 rounded-full shadow">
+        <button className="absolute top-3 right-3 md:top-4 md:right-4 bg-white p-2 rounded-full shadow">
           <FiHeart size={18} />
         </button>
 
@@ -32,7 +32,7 @@ function ProductCard({
           {category}
         </p>
 
-        <h3 className="mt-1 text-lg font-medium">
+        <h3 className="mt-1 text-base md:text-lg font-medium">
           {name}
         </h3>
 
