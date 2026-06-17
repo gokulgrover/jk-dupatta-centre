@@ -35,50 +35,9 @@ function HeroBanner() {
       <div className="grid grid-cols-1 lg:grid-cols-12">
 
         {/* Left Sidebar */}
-        <div className="lg:col-span-3 bg-white border-r p-4 md:p-6 lg:p-8">
-          <ul className="space-y-6 text-gray-700">
-
-            <li className="cursor-pointer hover:text-[#6e4352]">
-              Cotton Dupatta
-            </li>
-
-            <li className="cursor-pointer hover:text-[#6e4352]">
-              Chiffon Dupatta
-            </li>
-
-            <li className="cursor-pointer hover:text-[#6e4352]">
-              Silk Dupatta
-            </li>
-
-            <li className="cursor-pointer hover:text-[#6e4352]">
-              Georgette Dupatta
-            </li>
-
-            <li className="cursor-pointer hover:text-[#6e4352]">
-              Bandhani Dupatta
-            </li>
-
-            <li className="cursor-pointer hover:text-[#6e4352]">
-              Printed Dupatta
-            </li>
-
-            <li className="cursor-pointer hover:text-[#6e4352]">
-              Embroidered Dupatta
-            </li>
-
-            <li className="cursor-pointer hover:text-[#6e4352]">
-              Phulkari Dupatta
-            </li>
-
-          </ul>
-
-          <button className="mt-10 border px-5 py-3 text-sm hover:bg-[#6e4352] hover:text-white transition">
-            VIEW ALL COLLECTIONS
-          </button>
-        </div>
-
+        
         {/* Banner Slider */}
-        <div className="lg:col-span-9 relative overflow-hidden">
+        <div className="col-span-1 relative overflow-hidden">
 
           <img
             src={banners[currentSlide]}

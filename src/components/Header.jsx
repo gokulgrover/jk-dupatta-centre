@@ -1,5 +1,7 @@
+import { useState } from "react";
 import {
   FiMenu,
+  FiX,
   FiSearch,
   FiUser,
   FiHeart,
@@ -7,39 +9,95 @@ import {
 } from "react-icons/fi";
 
 function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const categories = [
+    "Cotton Dupatta",
+    "Chiffon Dupatta",
+    "Silk Dupatta",
+    "Georgette Dupatta",
+    "Bandhani Dupatta",
+    "Printed Dupatta",
+    "Embroidered Dupatta",
+    "Phulkari Dupatta",
+  ];
+
   return (
-    <header className="bg-white border-b">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-5 flex items-center justify-between">
+    <>
+      <header className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-5 flex items-center justify-between">
 
-        {/* Left */}
-        <div className="flex items-center gap-2 cursor-pointer">
-          <FiMenu size={20} />
-          <span className="hidden sm:block text-sm uppercase tracking-wider">
-            Menu
-          </span>
+          <div
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => setMenuOpen(true)}
+          >
+            <FiMenu size={22} />
+            <span className="hidden sm:block text-sm uppercase tracking-wider">
+              Menu
+            </span>
+          </div>
+
+          <div className="text-center">
+            <h1 className="text-xl sm:text-2xl md:text-4xl font-serif tracking-wide">
+              JK DUPATTA
+            </h1>
+
+            <p className="text-[10px] sm:text-xs tracking-[2px] md:tracking-[4px] text-gray-500 uppercase mt-1">
+              Centre
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 md:gap-6">
+            <FiSearch size={20} />
+            <FiUser size={20} />
+            <FiHeart size={20} />
+            <FiShoppingBag size={20} />
+          </div>
+        </div>
+      </header>
+
+      {/* Overlay */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
+      {/* Side Menu */}
+      <div
+        className={`fixed top-0 left-0 h-full w-[300px] bg-white z-50 transition-transform duration-300 ${
+          menuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between p-5 border-b">
+          <h3 className="font-semibold text-lg">Collections</h3>
+
+          <FiX
+            size={24}
+            className="cursor-pointer"
+            onClick={() => setMenuOpen(false)}
+          />
         </div>
 
-        {/* Center Logo */}
-        <div className="text-center">
-          <h1 className="text-xl sm:text-2xl md:text-4xl font-serif tracking-wide">
-            JK DUPATTA
-          </h1>
+        <ul className="p-5 space-y-5">
+          {categories.map((item, index) => (
+            <li
+              key={index}
+              className="cursor-pointer hover:text-[#6e4352]"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
 
-          <p className="text-[10px] sm:text-xs tracking-[2px] md:tracking-[4px] text-gray-500 uppercase mt-1">
-            Centre
-          </p>
+        <div className="px-5">
+          <button className="w-full border py-3 hover:bg-[#6e4352] hover:text-white transition">
+            VIEW ALL COLLECTIONS
+          </button>
         </div>
-
-        {/* Right Icons */}
-        <div className="flex items-center gap-3 md:gap-6">
-          <FiSearch size={20} className="cursor-pointer" />
-          <FiUser size={20} className="cursor-pointer" />
-          <FiHeart size={20} className="cursor-pointer" />
-          <FiShoppingBag size={20} className="cursor-pointer" />
-        </div>
-
       </div>
-    </header>
+    </>
   );
 }
 
