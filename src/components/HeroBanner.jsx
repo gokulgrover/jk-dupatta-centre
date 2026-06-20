@@ -32,12 +32,12 @@ function HeroBanner() {
 
   return (
     <section>
-      <div className="grid grid-cols-1 lg:grid-cols-12">
+      <div>
 
         {/* Left Sidebar */}
         
         {/* Banner Slider */}
-        <div className="col-span-1 relative overflow-hidden">
+        <div className="relative overflow-hidden w-full">
 
           <img
             src={banners[currentSlide]}
