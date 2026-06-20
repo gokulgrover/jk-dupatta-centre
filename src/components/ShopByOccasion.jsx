@@ -3,30 +3,36 @@ import festive from "../assets/occasions/festive.jpg";
 import party from "../assets/occasions/party.jpg";
 import wedding from "../assets/occasions/wedding.jpg";
 import gift from "../assets/occasions/gift.jpg";
+import { Link } from "react-router-dom";
 
 function ShopByOccasion() {
   const occasions = [
-    {
-      title: "Daily Wear",
-      image: daily,
-    },
-    {
-      title: "Festive Wear",
-      image: festive,
-    },
-    {
-      title: "Party Wear",
-      image: party,
-    },
-    {
-      title: "Wedding Wear",
-      image: wedding,
-    },
-    {
-      title: "Gift Collection",
-      image: gift,
-    },
-  ];
+  {
+    title: "Daily Wear",
+    slug: "daily-wear",
+    image: daily,
+  },
+  {
+    title: "Festive Wear",
+    slug: "festive-wear",
+    image: festive,
+  },
+  {
+    title: "Party Wear",
+    slug: "party-wear",
+    image: party,
+  },
+  {
+    title: "Wedding Wear",
+    slug: "wedding-wear",
+    image: wedding,
+  },
+  {
+    title: "Gift Collection",
+    slug: "gift-collection",
+    image: gift,
+  },
+];
 
   return (
     <section className="py-12 md:py-16 lg:py-24 bg-[#faf7f4]">
@@ -47,10 +53,11 @@ function ShopByOccasion() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
 
           {occasions.map((item, index) => (
-            <div
-              key={index}
-              className="group cursor-pointer"
-            >
+            <Link
+  to={`/category/${item.slug}`}
+  key={index}
+  className="group cursor-pointer block"
+>
               <div className="overflow-hidden rounded-t-full">
 
                 <img
@@ -68,7 +75,7 @@ function ShopByOccasion() {
                 </h3>
 
               </div>
-            </div>
+            </Link>
           ))}
 
         </div>

@@ -1,13 +1,18 @@
 import { FiHeart } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 function ProductCard({
+  id,
   image,
   name,
   category,
   price,
 }) {
   return (
-    <div className="group bg-white">
+    <Link
+  to={`/product/${id}`}
+  className="group bg-white block"
+>
 
       {/* Product Image */}
       <div className="relative overflow-hidden rounded-2xl">
@@ -42,7 +47,7 @@ function ProductCard({
 
       </div>
 
-    </div>
+    </Link>
   );
 }
 

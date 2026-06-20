@@ -1,8 +1,14 @@
 import { useState } from "react";
+import product1 from "../assets/products/product1.jpg";
+import TopBar from "../components/TopBar";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function ProductDetails() {
 
   const [qty, setQty] = useState(1);
+
+  const [liked, setLiked] = useState(false);
 
   const handleBuyNow = () => {
 
@@ -16,12 +22,16 @@ Quantity: ${qty}
 `;
 
     window.open(
-      `https://wa.me/919999999999?text=${encodeURIComponent(message)}`,
+      `https://wa.me/919988358061?text=${encodeURIComponent(message)}`,
       "_blank"
     );
   };
 
   return (
+    <>
+    <TopBar />
+    <Header />
+
     <section className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-16 lg:py-20">
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
@@ -30,10 +40,10 @@ Quantity: ${qty}
 
         <div>
           <img
-            src="https://via.placeholder.com/600x800"
-            alt=""
-            className="w-full rounded-2xl"
-          />
+  src={product1}
+  alt=""
+  className="w-full rounded-2xl"
+/>
         </div>
 
         {/* Content */}
@@ -81,13 +91,18 @@ Quantity: ${qty}
 
           </div>
 
+          
+
           {/* Buttons */}
 
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
 
-            <button className="border px-8 py-4">
-              ❤️ Like
-            </button>
+            <button
+  onClick={() => setLiked(!liked)}
+  className="border px-8 py-4"
+>
+  {liked ? "❤️ Liked" : "🤍 Like"}
+</button>
 
             <button
               onClick={handleBuyNow}
@@ -103,6 +118,8 @@ Quantity: ${qty}
       </div>
 
     </section>
+    <Footer />
+  </>
   );
 }
 
