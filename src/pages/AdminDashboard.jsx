@@ -9,15 +9,22 @@ function AdminDashboard() {
   "Free Shipping on Orders Above ₹999"
 );
 
+const [successMessage, setSuccessMessage] = useState("");
+
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("dashboard");
     const handleLogout = () => {
     localStorage.removeItem("adminLoggedIn");
     navigate("/admin");
     };
-    const saveTopBarText = () => {
+   const saveTopBarText = () => {
   localStorage.setItem("topBarText", topBarText);
-  alert("Top Bar Updated Successfully");
+
+  setSuccessMessage("✅ Top Bar Updated Successfully");
+
+  setTimeout(() => {
+    setSuccessMessage("");
+  }, 3000);
 };
 
     useEffect(() => {
@@ -129,6 +136,11 @@ function AdminDashboard() {
     >
       Save Changes
     </button>
+    {successMessage && (
+  <p className="mt-4 text-green-600 font-medium">
+    {successMessage}
+  </p>
+)}
 
   </div>
 )}
