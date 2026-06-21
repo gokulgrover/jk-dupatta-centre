@@ -19,6 +19,7 @@ function CategoryProducts() {
       image: product1,
       name: "Daily Cotton Dupatta",
       category: "daily-wear",
+      color: "blush-pink",
       price: 799,
     },
     {
@@ -26,6 +27,7 @@ function CategoryProducts() {
       image: product2,
       name: "Printed Daily Dupatta",
       category: "daily-wear",
+      color: "sage-green",
       price: 899,
     },
     {
@@ -33,6 +35,7 @@ function CategoryProducts() {
       image: product3,
       name: "Wedding Silk Dupatta",
       category: "wedding-wear",
+      color: "royal-blue",
       price: 1499,
     },
     {
@@ -40,6 +43,7 @@ function CategoryProducts() {
       image: product4,
       name: "Party Wear Dupatta",
       category: "party-wear",
+      color: "mustard",
       price: 1199,
     },
   ];

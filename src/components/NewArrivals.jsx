@@ -13,6 +13,7 @@ function NewArrivals() {
       image: product1,
       name: "Floral Cotton Dupatta",
       category: "Cotton",
+      color: "blush-pink",
       price: 799,
     },
     {
@@ -20,6 +21,7 @@ function NewArrivals() {
       image: product2,
       name: "Elegant Chiffon Dupatta",
       category: "Chiffon",
+      color: "sage-green",
       price: 999,
     },
     {
@@ -27,6 +29,7 @@ function NewArrivals() {
       image: product3,
       name: "Premium Silk Dupatta",
       category: "Silk",
+      color: "royal-blue",
       price: 1499,
     },
     {
@@ -34,6 +37,7 @@ function NewArrivals() {
       image: product4,
       name: "Bandhani Collection",
       category: "Bandhani",
+      color: "mustard",
       price: 1199,
     },
   ];

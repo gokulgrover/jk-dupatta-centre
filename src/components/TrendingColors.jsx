@@ -1,38 +1,48 @@
+import { Link } from "react-router-dom";
+
 function TrendingColors() {
   const colors = [
-    {
-      name: "Blush Pink",
-      color: "#E8C7C8",
-    },
-    {
-      name: "Sage Green",
-      color: "#A9B79D",
-    },
-    {
-      name: "Mustard",
-      color: "#D8A228",
-    },
-    {
-      name: "Royal Blue",
-      color: "#2E4A9E",
-    },
-    {
-      name: "Wine Red",
-      color: "#6E4352",
-    },
-    {
-      name: "Ivory",
-      color: "#F5F1E8",
-    },
-    {
-      name: "Peach",
-      color: "#F5C5A5",
-    },
-    {
-      name: "Lavender",
-      color: "#C7B5E8",
-    },
-  ];
+  {
+    name: "Blush Pink",
+    slug: "blush-pink",
+    color: "#E8C7C8",
+  },
+  {
+    name: "Sage Green",
+    slug: "sage-green",
+    color: "#A9B79D",
+  },
+  {
+    name: "Mustard",
+    slug: "mustard",
+    color: "#D8A228",
+  },
+  {
+    name: "Royal Blue",
+    slug: "royal-blue",
+    color: "#2E4A9E",
+  },
+  {
+    name: "Wine Red",
+    slug: "wine-red",
+    color: "#6E4352",
+  },
+  {
+    name: "Ivory",
+    slug: "ivory",
+    color: "#F5F1E8",
+  },
+  {
+    name: "Peach",
+    slug: "peach",
+    color: "#F5C5A5",
+  },
+  {
+    name: "Lavender",
+    slug: "lavender",
+    color: "#C7B5E8",
+  },
+];
 
   return (
     <section className="py-12 md:py-16 lg:py-24 bg-[#faf7f4]">
@@ -57,10 +67,11 @@ function TrendingColors() {
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 md:gap-6 lg:gap-8">
 
           {colors.map((item, index) => (
-            <div
-              key={index}
-              className="text-center group cursor-pointer"
-            >
+            <Link
+  to={`/color/${item.slug}`}
+  key={index}
+  className="text-center group cursor-pointer block"
+>
 
               <div
                 className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mx-auto rounded-full border-4 border-white shadow-md transition duration-300 group-hover:scale-110"
@@ -73,7 +84,7 @@ function TrendingColors() {
                 {item.name}
               </h3>
 
-            </div>
+            </Link>
           ))}
 
         </div>

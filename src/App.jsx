@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ColorProducts from "./pages/ColorProducts";
 
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
@@ -15,6 +16,10 @@ function App() {
           path="/category/:slug"
           element={<CategoryProducts />}
         />
+        <Route
+  path="/color/:slug"
+  element={<ColorProducts />}
+ />
 
         <Route
           path="/product/:id"
