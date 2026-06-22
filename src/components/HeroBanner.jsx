@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-import banner1 from "../assets/hero/Banner1.png";
-import banner2 from "../assets/hero/Banner2.png";
-import banner3 from "../assets/hero/Banner3.png";
-
 function HeroBanner() {
-  const banners = [banner1, banner2, banner3];
+  
+  const [banners, setBanners] = useState([]);
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -23,12 +20,47 @@ function HeroBanner() {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
+  const fetchBanners = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/banner"
+      );
 
-    return () => clearInterval(interval);
-  }, []);
+      const data = await response.json();
+
+setBanners(
+  data.map((item) => item.imageUrl)
+);
+
+setCurrentSlide(0);
+
+      setBanners(
+        data.map((item) => item.imageUrl)
+      );
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchBanners();
+}, []);
+
+  useEffect(() => {
+  if (banners.length === 0) return;
+
+  const interval = setInterval(() => {
+    setCurrentSlide((prev) =>
+      prev === banners.length - 1 ? 0 : prev + 1
+    );
+  }, 5000);
+
+  return () => clearInterval(interval);
+}, [banners]);
+
+  if (banners.length === 0) {
+  return null;
+}
 
   return (
     <section>
@@ -40,7 +72,7 @@ function HeroBanner() {
         <div className="relative overflow-hidden w-full">
 
           <img
-            src={banners[currentSlide]}
+            src={banners[currentSlide] || banners[0]}
             alt="Banner"
             className="w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-full object-cover"
           />

@@ -2,7 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
+
+
 function AdminDashboard() {
+
+  const [bannerFile, setBannerFile] = useState(null);
+  const [bannerMessage, setBannerMessage] = useState("");
+  const [banners, setBanners] = useState([]);
 
     const [topBarText, setTopBarText] = useState(
   localStorage.getItem("topBarText") ||
@@ -27,6 +33,69 @@ const [successMessage, setSuccessMessage] = useState("");
   }, 3000);
 };
 
+const fetchBanners = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/banner"
+    );
+
+    const data = await response.json();
+
+    setBanners(data);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteBanner = async (id) => {
+  try {
+
+    await fetch(
+      `http://localhost:5000/api/banner/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    fetchBanners();
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const uploadBanner = async () => {
+  if (!bannerFile) {
+    alert("Please Select Banner");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("banner", bannerFile);
+
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/banner/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const data = await response.json();
+
+    setBannerMessage("✅ Banner Uploaded Successfully");
+    fetchBanners();
+
+    console.log(data);
+
+  } catch (error) {
+    console.log(error);
+    setBannerMessage("❌ Upload Failed");
+  }
+};
+
     useEffect(() => {
 
   const isLoggedIn =
@@ -36,8 +105,11 @@ const [successMessage, setSuccessMessage] = useState("");
     navigate("/admin");
   }
 
+  fetchBanners();
 
 }, []);
+
+
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -84,14 +156,6 @@ const [successMessage, setSuccessMessage] = useState("");
   >
     Products
   </li>
-
-  <li
-    className="cursor-pointer"
-    onClick={() => setActiveTab("footer")}
-  >
-    Footer Settings
-  </li>
-
 </ul>
 <button
   onClick={handleLogout}
@@ -146,9 +210,62 @@ const [successMessage, setSuccessMessage] = useState("");
 )}
 
 {activeTab === "banners" && (
-  <h1 className="text-3xl font-bold">
-    Hero Banners
-  </h1>
+  <div>
+
+    <h1 className="text-3xl font-bold mb-6">
+      Hero Banners
+    </h1>
+
+    <input
+      type="file"
+      onChange={(e) =>
+        setBannerFile(e.target.files[0])
+      }
+      className="mb-4"
+    />
+
+    <br />
+
+    <button
+      onClick={uploadBanner}
+      className="bg-[#6e4352] text-white px-6 py-3 rounded"
+    >
+      Upload Banner
+    </button>
+
+    {bannerMessage && (
+      <p className="mt-4 text-green-600">
+        {bannerMessage}
+      </p>
+    )}
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+
+  {banners.map((banner) => (
+    <div
+      key={banner._id}
+      className="border rounded p-3"
+    >
+
+      <img
+        src={banner.imageUrl}
+        alt="Banner"
+        className="w-full h-40 object-cover rounded"
+      />
+
+      <button
+        onClick={() => deleteBanner(banner._id)}
+        className="mt-3 bg-red-500 text-white px-4 py-2 rounded"
+      >
+        Delete Banner
+      </button>
+
+    </div>
+  ))}
+
+</div>
+
+  </div>
 )}
 
 {activeTab === "categories" && (
@@ -168,13 +285,6 @@ const [successMessage, setSuccessMessage] = useState("");
     Products
   </h1>
 )}
-
-{activeTab === "footer" && (
-  <h1 className="text-3xl font-bold">
-    Footer Settings
-  </h1>
-)}
-
       </div>
 
     </div>
