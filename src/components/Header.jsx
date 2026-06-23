@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useState } from "react";
 import {
   FiMenu,
   FiX,
@@ -11,6 +10,7 @@ import {
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+
 
   useEffect(() => {
   fetchCategories();
@@ -36,6 +36,7 @@ const fetchCategories = async () => {
 };
 
   const [categories, setCategories] = useState([]);
+  console.log("CATEGORIES STATE =", categories);
 
   return (
     <>
