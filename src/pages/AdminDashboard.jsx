@@ -19,6 +19,11 @@ const [successMessage, setSuccessMessage] = useState("");
 
 const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
 
+const [categories, setCategories] = useState([]);
+const [categoryName, setCategoryName] = useState("");
+const [categoryStatus, setCategoryStatus] = useState("Active");
+const [editId, setEditId] = useState(null);
+
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("dashboard");
     const handleLogout = () => {
@@ -98,6 +103,75 @@ const uploadBanner = async () => {
   }
 };
 
+const fetchCategories = async () => {
+  try {
+    const response = await fetch(
+      "https://jk-dupatta-backend.onrender.com/api/category"
+    );
+
+    const data = await response.json();
+
+    setCategories(data);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const saveCategory = async () => {
+  try {
+
+    const url = editId
+      ? `https://jk-dupatta-backend.onrender.com/api/category/${editId}`
+      : "https://jk-dupatta-backend.onrender.com/api/category";
+
+    const method = editId ? "PUT" : "POST";
+
+    await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        categoryName,
+        status: categoryStatus,
+      }),
+    });
+
+    setCategoryName("");
+    setCategoryStatus("Active");
+    setEditId(null);
+
+    fetchCategories();
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteCategory = async (id) => {
+  try {
+
+    await fetch(
+      `https://jk-dupatta-backend.onrender.com/api/category/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    fetchCategories();
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const editCategory = (item) => {
+  setEditId(item._id);
+  setCategoryName(item.categoryName);
+  setCategoryStatus(item.status);
+};
+
     useEffect(() => {
 
   const isLoggedIn =
@@ -108,6 +182,7 @@ const uploadBanner = async () => {
   }
 
   fetchBanners();
+  fetchCategories();
 
 }, []);
 
@@ -313,9 +388,121 @@ const uploadBanner = async () => {
 )}
 
 {activeTab === "category-master" && (
-  <h1 className="text-3xl font-bold">
-    Category Master
-  </h1>
+  <div>
+
+    <h1 className="text-3xl font-bold mb-6">
+      Category Master
+    </h1>
+
+    <div className="grid md:grid-cols-2 gap-4">
+
+      <input
+        type="text"
+        placeholder="Category Name"
+        value={categoryName}
+        onChange={(e) =>
+          setCategoryName(e.target.value)
+        }
+        className="border p-3 rounded"
+      />
+
+      <select
+        value={categoryStatus}
+        onChange={(e) =>
+          setCategoryStatus(e.target.value)
+        }
+        className="border p-3 rounded"
+      >
+        <option value="Active">
+          Active
+        </option>
+
+        <option value="Inactive">
+          Inactive
+        </option>
+
+      </select>
+
+    </div>
+
+    <button
+      onClick={saveCategory}
+      className="mt-4 bg-[#6e4352] text-white px-6 py-3 rounded"
+    >
+      {editId ? "Update Category" : "Add Category"}
+    </button>
+
+    <div className="mt-8 overflow-x-auto">
+
+      <table className="w-full border">
+
+        <thead>
+
+          <tr className="bg-gray-100">
+
+            <th className="border p-3">
+              Category Name
+            </th>
+
+            <th className="border p-3">
+              Status
+            </th>
+
+            <th className="border p-3">
+              Actions
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          {categories.map((item) => (
+
+            <tr key={item._id}>
+
+              <td className="border p-3">
+                {item.categoryName}
+              </td>
+
+              <td className="border p-3">
+                {item.status}
+              </td>
+
+              <td className="border p-3 space-x-2">
+
+                <button
+                  onClick={() =>
+                    editCategory(item)
+                  }
+                  className="bg-blue-500 text-white px-3 py-1 rounded"
+                >
+                  Edit
+                </button>
+
+                <button
+                  onClick={() =>
+                    deleteCategory(item._id)
+                  }
+                  className="bg-red-500 text-white px-3 py-1 rounded"
+                >
+                  Delete
+                </button>
+
+              </td>
+
+            </tr>
+
+          ))}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
 )}
 
 {activeTab === "sub-category" && (
