@@ -124,67 +124,82 @@ const uploadBanner = async () => {
 
         <ul className="space-y-4">
 
+  <li
+    className="cursor-pointer"
+    onClick={() => setActiveTab("settings")}
+  >
+    Website Settings
+  </li>
+
+  <li
+    className="cursor-pointer"
+    onClick={() => setActiveTab("banners")}
+  >
+    Hero Banners
+  </li>
+
   <li>
 
-  <div
-    className="cursor-pointer flex justify-between items-center"
-    onClick={() =>
-      setCategoryMenuOpen(!categoryMenuOpen)
-    }
-  >
-    <span>Categories</span>
+    <div
+      className="cursor-pointer flex justify-between items-center"
+      onClick={() =>
+        setCategoryMenuOpen(!categoryMenuOpen)
+      }
+    >
+      <span>Categories</span>
 
-    <span>
-      {categoryMenuOpen ? "▲" : "▼"}
-    </span>
+      <span>
+        {categoryMenuOpen ? "▲" : "▼"}
+      </span>
 
-  </div>
+    </div>
 
-  {categoryMenuOpen && (
+    {categoryMenuOpen && (
 
-    <ul className="ml-4 mt-3 space-y-3 text-sm">
+      <ul className="ml-4 mt-3 space-y-3 text-sm">
 
-      <li
-        className="cursor-pointer"
-        onClick={() =>
-          setActiveTab("category-master")
-        }
-      >
-        Category Master
-      </li>
+        <li
+          className="cursor-pointer"
+          onClick={() =>
+            setActiveTab("category-master")
+          }
+        >
+          Category Master
+        </li>
 
-      <li
-        className="cursor-pointer"
-        onClick={() =>
-          setActiveTab("sub-category")
-        }
-      >
-        Sub Category
-      </li>
+        <li
+          className="cursor-pointer"
+          onClick={() =>
+            setActiveTab("sub-category")
+          }
+        >
+          Sub Category
+        </li>
 
-      <li
-        className="cursor-pointer"
-        onClick={() =>
-          setActiveTab("products")
-        }
-      >
-        Products
-      </li>
+        <li
+          className="cursor-pointer"
+          onClick={() =>
+            setActiveTab("products")
+          }
+        >
+          Products
+        </li>
 
-      <li
-        className="cursor-pointer"
-        onClick={() =>
-          setActiveTab("color-mapping")
-        }
-      >
-        Color Mapping
-      </li>
+        <li
+          className="cursor-pointer"
+          onClick={() =>
+            setActiveTab("color-mapping")
+          }
+        >
+          Color Mapping
+        </li>
 
-    </ul>
+      </ul>
 
-  )}
+    )}
 
-</li>
+  </li>
+
 </ul>
 <button
   onClick={handleLogout}
