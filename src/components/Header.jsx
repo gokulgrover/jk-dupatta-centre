@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useState } from "react";
 import {
   FiMenu,
@@ -11,16 +12,30 @@ import {
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const categories = [
-    "Cotton Dupatta",
-    "Chiffon Dupatta",
-    "Silk Dupatta",
-    "Georgette Dupatta",
-    "Bandhani Dupatta",
-    "Printed Dupatta",
-    "Embroidered Dupatta",
-    "Phulkari Dupatta",
-  ];
+  useEffect(() => {
+  fetchCategories();
+}, []);
+
+const fetchCategories = async () => {
+  try {
+    const response = await fetch(
+      "https://jk-dupatta-backend.onrender.com/api/category"
+    );
+
+    const data = await response.json();
+
+    const activeCategories = data.filter(
+      (item) => item.status === "Active"
+    );
+
+    setCategories(activeCategories);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+  const [categories, setCategories] = useState([]);
 
   return (
     <>
@@ -81,14 +96,14 @@ function Header() {
         </div>
 
         <ul className="p-5 space-y-5">
-          {categories.map((item, index) => (
-            <li
-              key={index}
-              className="cursor-pointer hover:text-[#6e4352]"
-            >
-              {item}
-            </li>
-          ))}
+          {categories.map((item) => (
+  <li
+    key={item._id}
+    className="cursor-pointer hover:text-[#6e4352]"
+  >
+    {item.categoryName}
+  </li>
+))}
         </ul>
 
         <div className="px-5">
