@@ -17,6 +17,8 @@ function AdminDashboard() {
 
 const [successMessage, setSuccessMessage] = useState("");
 
+const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
+
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("dashboard");
     const handleLogout = () => {
@@ -122,40 +124,67 @@ const uploadBanner = async () => {
 
         <ul className="space-y-4">
 
-  <li
-    className="cursor-pointer"
-    onClick={() => setActiveTab("settings")}
-  >
-    Website Settings
-  </li>
+  <li>
 
-  <li
-    className="cursor-pointer"
-    onClick={() => setActiveTab("banners")}
+  <div
+    className="cursor-pointer flex justify-between items-center"
+    onClick={() =>
+      setCategoryMenuOpen(!categoryMenuOpen)
+    }
   >
-    Hero Banners
-  </li>
+    <span>Categories</span>
 
-  <li
-    className="cursor-pointer"
-    onClick={() => setActiveTab("categories")}
-  >
-    Categories
-  </li>
+    <span>
+      {categoryMenuOpen ? "▲" : "▼"}
+    </span>
 
-  <li
-    className="cursor-pointer"
-    onClick={() => setActiveTab("colors")}
-  >
-    Colors
-  </li>
+  </div>
 
-  <li
-    className="cursor-pointer"
-    onClick={() => setActiveTab("products")}
-  >
-    Products
-  </li>
+  {categoryMenuOpen && (
+
+    <ul className="ml-4 mt-3 space-y-3 text-sm">
+
+      <li
+        className="cursor-pointer"
+        onClick={() =>
+          setActiveTab("category-master")
+        }
+      >
+        Category Master
+      </li>
+
+      <li
+        className="cursor-pointer"
+        onClick={() =>
+          setActiveTab("sub-category")
+        }
+      >
+        Sub Category
+      </li>
+
+      <li
+        className="cursor-pointer"
+        onClick={() =>
+          setActiveTab("products")
+        }
+      >
+        Products
+      </li>
+
+      <li
+        className="cursor-pointer"
+        onClick={() =>
+          setActiveTab("color-mapping")
+        }
+      >
+        Color Mapping
+      </li>
+
+    </ul>
+
+  )}
+
+</li>
 </ul>
 <button
   onClick={handleLogout}
@@ -268,21 +297,27 @@ const uploadBanner = async () => {
   </div>
 )}
 
-{activeTab === "categories" && (
+{activeTab === "category-master" && (
   <h1 className="text-3xl font-bold">
-    Categories
+    Category Master
   </h1>
 )}
 
-{activeTab === "colors" && (
+{activeTab === "sub-category" && (
   <h1 className="text-3xl font-bold">
-    Colors
+    Sub Category
   </h1>
 )}
 
 {activeTab === "products" && (
   <h1 className="text-3xl font-bold">
     Products
+  </h1>
+)}
+
+{activeTab === "color-mapping" && (
+  <h1 className="text-3xl font-bold">
+    Color Mapping
   </h1>
 )}
       </div>
