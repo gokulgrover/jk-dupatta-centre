@@ -36,7 +36,7 @@ const [successMessage, setSuccessMessage] = useState("");
 const fetchBanners = async () => {
   try {
     const response = await fetch(
-      "http://localhost:5000/api/banner"
+      "https://jk-dupatta-backend.onrender.com/api/banner"
     );
 
     const data = await response.json();
@@ -52,7 +52,7 @@ const deleteBanner = async (id) => {
   try {
 
     await fetch(
-      `http://localhost:5000/api/banner/${id}`,
+      `https://jk-dupatta-backend.onrender.com/api/banner/${id}`,
       {
         method: "DELETE",
       }
@@ -76,7 +76,7 @@ const uploadBanner = async () => {
 
   try {
     const response = await fetch(
-      "http://localhost:5000/api/banner/upload",
+      "https://jk-dupatta-backend.onrender.com/api/banner/upload",
       {
         method: "POST",
         body: formData,

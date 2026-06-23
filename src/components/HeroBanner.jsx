@@ -23,7 +23,7 @@ function HeroBanner() {
   const fetchBanners = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/banner"
+        "https://jk-dupatta-backend.onrender.com/api/banner"
       );
 
       const data = await response.json();
