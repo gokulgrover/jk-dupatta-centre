@@ -9,6 +9,7 @@ function AdminDashboard() {
   const [bannerFile, setBannerFile] = useState(null);
   const [bannerMessage, setBannerMessage] = useState("");
   const [banners, setBanners] = useState([]);
+  const [editBannerId, setEditBannerId] = useState(null);
 
     const [topBarText, setTopBarText] = useState(
   localStorage.getItem("topBarText") ||
@@ -82,24 +83,44 @@ const uploadBanner = async () => {
   formData.append("banner", bannerFile);
 
   try {
-    const response = await fetch(
-      "https://jk-dupatta-backend.onrender.com/api/banner/upload",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+
+    const url = editBannerId
+      ? `https://jk-dupatta-backend.onrender.com/api/banner/${editBannerId}`
+      : "https://jk-dupatta-backend.onrender.com/api/banner/upload";
+
+    const method = editBannerId
+      ? "PUT"
+      : "POST";
+
+    const response = await fetch(url, {
+      method,
+      body: formData,
+    });
 
     const data = await response.json();
 
-    setBannerMessage("✅ Banner Uploaded Successfully");
+    setBannerMessage(
+      editBannerId
+        ? "✅ Banner Updated Successfully"
+        : "✅ Banner Uploaded Successfully"
+    );
+
+    setEditBannerId(null);
+    setBannerFile(null);
+
     fetchBanners();
 
     console.log(data);
 
   } catch (error) {
+
     console.log(error);
-    setBannerMessage("❌ Upload Failed");
+
+    setBannerMessage(
+      editBannerId
+        ? "❌ Update Failed"
+        : "❌ Upload Failed"
+    );
   }
 };
 
@@ -164,6 +185,14 @@ const deleteCategory = async (id) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const editBanner = (banner) => {
+  setEditBannerId(banner._id);
+
+  setBannerMessage(
+    "Select New Banner Image & Click Update Banner"
+  );
 };
 
 const editCategory = (item) => {
@@ -349,7 +378,9 @@ const editCategory = (item) => {
       onClick={uploadBanner}
       className="bg-[#6e4352] text-white px-6 py-3 rounded"
     >
-      Upload Banner
+      {editBannerId
+  ? "Update Banner"
+  : "Upload Banner"}
     </button>
 
     {bannerMessage && (
@@ -371,6 +402,13 @@ const editCategory = (item) => {
         alt="Banner"
         className="w-full h-40 object-cover rounded"
       />
+
+      <button
+      onClick={() => editBanner(banner)}
+      className="mt-3 mr-2 bg-blue-500 text-white px-4 py-2 rounded"
+      >
+      Edit Banner
+      </button>
 
       <button
         onClick={() => deleteBanner(banner._id)}
