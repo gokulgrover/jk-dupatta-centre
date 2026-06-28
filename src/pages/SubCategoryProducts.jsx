@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import TopBar from "../components/TopBar";
@@ -8,6 +9,43 @@ import Footer from "../components/Footer";
 function SubCategoryProducts() {
 
   const { slug } = useParams();
+
+const [subCategory, setSubCategory] = useState(null);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  fetchSubCategory();
+}, [slug]);
+
+const fetchSubCategory = async () => {
+  try {
+
+    const response = await fetch(
+      "https://jk-dupatta-backend.onrender.com/api/sub-category"
+    );
+
+    const data = await response.json();
+
+    const found = data.find((item) =>
+
+      item.subCategoryName
+        .toLowerCase()
+        .replace(/\s+/g, "-") === slug
+
+    );
+
+    setSubCategory(found || null);
+
+  } catch (error) {
+
+    console.log(error);
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
 
   return (
     <>
