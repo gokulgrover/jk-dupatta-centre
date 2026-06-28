@@ -6,6 +6,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 import CategoryProducts from "./pages/CategoryProducts";
+import SubCategoryProducts from "./pages/SubCategoryProducts";
 
 function App() {
   return (
@@ -19,6 +20,12 @@ function App() {
           path="/category/:slug"
           element={<CategoryProducts />}
         />
+
+        <Route
+          path="/sub-category/:slug"
+          element={<SubCategoryProducts />}
+        />
+
         <Route
   path="/color/:slug"
   element={<ColorProducts />}
