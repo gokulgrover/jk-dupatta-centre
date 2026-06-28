@@ -137,10 +137,6 @@ const fetchSubCategories = async () => {
 
         <span>{category.categoryName}</span>
 
-        <span>
-          {openCategory === category._id ? "▲" : "▼"}
-        </span>
-
       </div>
 
       {openCategory === category._id && (
@@ -148,10 +144,15 @@ const fetchSubCategories = async () => {
         <ul className="ml-5 mt-3 space-y-2">
 
           {subCategories
-            .filter(
-              (sub) =>
-                sub.categoryId === category._id
-            )
+  .filter((sub) => {
+
+    if (typeof sub.categoryId === "object") {
+      return sub.categoryId._id === category._id;
+    }
+
+    return sub.categoryId === category._id;
+
+  })
             .map((sub) => (
 
               <li
