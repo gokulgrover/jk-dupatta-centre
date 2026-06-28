@@ -57,7 +57,6 @@ const fetchSubCategories = async () => {
 
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
-  const [menuOpen, setMenuOpen] = useState(false);
   console.log("CATEGORIES STATE =", categories);
   console.log("SUB CATEGORIES STATE =", subCategories);
   return (
