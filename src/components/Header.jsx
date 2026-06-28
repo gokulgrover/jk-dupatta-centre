@@ -14,6 +14,7 @@ function Header() {
 
   useEffect(() => {
   fetchCategories();
+   fetchSubCategories();
 }, []);
 
 const fetchCategories = async () => {
@@ -35,9 +36,30 @@ const fetchCategories = async () => {
   }
 };
 
-  const [categories, setCategories] = useState([]);
-  console.log("CATEGORIES STATE =", categories);
+const fetchSubCategories = async () => {
+  try {
+    const response = await fetch(
+      "https://jk-dupatta-backend.onrender.com/api/sub-category"
+    );
 
+    const data = await response.json();
+
+    const activeSubCategories = data.filter(
+      (item) => item.status === "Active"
+    );
+
+    setSubCategories(activeSubCategories);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false);
+  console.log("CATEGORIES STATE =", categories);
+  console.log("SUB CATEGORIES STATE =", subCategories);
   return (
     <>
       <header className="bg-white border-b">
