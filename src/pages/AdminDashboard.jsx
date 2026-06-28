@@ -24,6 +24,11 @@ const [categories, setCategories] = useState([]);
 const [categoryName, setCategoryName] = useState("");
 const [categoryStatus, setCategoryStatus] = useState("Active");
 const [editId, setEditId] = useState(null);
+const [subCategories, setSubCategories] = useState([]);
+const [selectedCategory, setSelectedCategory] = useState("");
+const [subCategoryName, setSubCategoryName] = useState("");
+const [subCategoryStatus, setSubCategoryStatus] = useState("Active");
+const [editSubCategoryId, setEditSubCategoryId] = useState(null);
 
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("dashboard");
@@ -199,6 +204,81 @@ const editCategory = (item) => {
   setEditId(item._id);
   setCategoryName(item.categoryName);
   setCategoryStatus(item.status);
+};
+
+const fetchSubCategories = async () => {
+  try {
+
+    const response = await fetch(
+      "https://jk-dupatta-backend.onrender.com/api/sub-category"
+    );
+
+    const data = await response.json();
+
+    setSubCategories(data);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const saveSubCategory = async () => {
+  try {
+
+    const url = editSubCategoryId
+      ? `https://jk-dupatta-backend.onrender.com/api/sub-category/${editSubCategoryId}`
+      : "https://jk-dupatta-backend.onrender.com/api/sub-category";
+
+    const method = editSubCategoryId
+      ? "PUT"
+      : "POST";
+
+    await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        categoryId: selectedCategory,
+        subCategoryName,
+        status: subCategoryStatus,
+      }),
+    });
+
+    setSelectedCategory("");
+    setSubCategoryName("");
+    setSubCategoryStatus("Active");
+    setEditSubCategoryId(null);
+
+    fetchSubCategories();
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const editSubCategory = (item) => {
+  setEditSubCategoryId(item._id);
+  setSelectedCategory(item.categoryId._id);
+  setSubCategoryName(item.subCategoryName);
+  setSubCategoryStatus(item.status);
+};
+
+const deleteSubCategory = async (id) => {
+  try {
+
+    await fetch(
+      `https://jk-dupatta-backend.onrender.com/api/sub-category/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    fetchSubCategories();
+
+  } catch (error) {
+    console.log(error);
+  }
 };
 
     useEffect(() => {
@@ -544,9 +624,156 @@ const editCategory = (item) => {
 )}
 
 {activeTab === "sub-category" && (
-  <h1 className="text-3xl font-bold">
-    Sub Category
-  </h1>
+  <div>
+
+    <h1 className="text-3xl font-bold mb-6">
+      Sub Category Master
+    </h1>
+
+    <div className="grid md:grid-cols-3 gap-4">
+
+      <select
+        value={selectedCategory}
+        onChange={(e) =>
+          setSelectedCategory(e.target.value)
+        }
+        className="border p-3 rounded"
+      >
+        <option value="">
+          Select Category
+        </option>
+
+        {categories
+          .filter(
+            (item) => item.status === "Active"
+          )
+          .map((item) => (
+            <option
+              key={item._id}
+              value={item._id}
+            >
+              {item.categoryName}
+            </option>
+          ))}
+      </select>
+
+      <input
+        type="text"
+        placeholder="Sub Category Name"
+        value={subCategoryName}
+        onChange={(e) =>
+          setSubCategoryName(e.target.value)
+        }
+        className="border p-3 rounded"
+      />
+
+      <select
+        value={subCategoryStatus}
+        onChange={(e) =>
+          setSubCategoryStatus(e.target.value)
+        }
+        className="border p-3 rounded"
+      >
+        <option value="Active">
+          Active
+        </option>
+
+        <option value="Inactive">
+          Inactive
+        </option>
+
+      </select>
+
+    </div>
+
+    <button
+      onClick={saveSubCategory}
+      className="mt-4 bg-[#6e4352] text-white px-6 py-3 rounded"
+    >
+      {editSubCategoryId
+        ? "Update Sub Category"
+        : "Add Sub Category"}
+    </button>
+
+    <div className="mt-8 overflow-x-auto">
+
+      <table className="w-full border">
+
+        <thead>
+
+          <tr className="bg-gray-100">
+
+            <th className="border p-3">
+              Category
+            </th>
+
+            <th className="border p-3">
+              Sub Category
+            </th>
+
+            <th className="border p-3">
+              Status
+            </th>
+
+            <th className="border p-3">
+              Actions
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          {subCategories.map((item) => (
+
+            <tr key={item._id}>
+
+              <td className="border p-3">
+                {item.categoryId?.categoryName}
+              </td>
+
+              <td className="border p-3">
+                {item.subCategoryName}
+              </td>
+
+              <td className="border p-3">
+                {item.status}
+              </td>
+
+              <td className="border p-3 space-x-2">
+
+                <button
+                  onClick={() =>
+                    editSubCategory(item)
+                  }
+                  className="bg-blue-500 text-white px-3 py-1 rounded"
+                >
+                  Edit
+                </button>
+
+                <button
+                  onClick={() =>
+                    deleteSubCategory(item._id)
+                  }
+                  className="bg-red-500 text-white px-3 py-1 rounded"
+                >
+                  Delete
+                </button>
+
+              </td>
+
+            </tr>
+
+          ))}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
 )}
 
 {activeTab === "products" && (
