@@ -57,6 +57,7 @@ const fetchSubCategories = async () => {
 
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
+  const [openCategory, setOpenCategory] = useState(null);
   console.log("CATEGORIES STATE =", categories);
   console.log("SUB CATEGORIES STATE =", subCategories);
   return (
@@ -118,15 +119,59 @@ const fetchSubCategories = async () => {
         </div>
 
         <ul className="p-5 space-y-5">
-          {categories.map((item) => (
-  <li
-    key={item._id}
-    className="cursor-pointer hover:text-[#6e4352]"
-  >
-    {item.categoryName}
-  </li>
-))}
+
+  {categories.map((category) => (
+
+    <li key={category._id}>
+
+      <div
+        className="flex justify-between items-center cursor-pointer hover:text-[#6e4352]"
+        onClick={() =>
+          setOpenCategory(
+            openCategory === category._id
+              ? null
+              : category._id
+          )
+        }
+      >
+
+        <span>{category.categoryName}</span>
+
+        <span>
+          {openCategory === category._id ? "▲" : "▼"}
+        </span>
+
+      </div>
+
+      {openCategory === category._id && (
+
+        <ul className="ml-5 mt-3 space-y-2">
+
+          {subCategories
+            .filter(
+              (sub) =>
+                sub.categoryId === category._id
+            )
+            .map((sub) => (
+
+              <li
+                key={sub._id}
+                className="text-sm cursor-pointer hover:text-[#6e4352]"
+              >
+                {sub.subCategoryName}
+              </li>
+
+            ))}
+
         </ul>
+
+      )}
+
+    </li>
+
+  ))}
+
+</ul>
 
         <div className="px-5">
           <button className="w-full border py-3 hover:bg-[#6e4352] hover:text-white transition">
