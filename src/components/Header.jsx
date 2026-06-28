@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   FiMenu,
   FiX,
@@ -155,12 +156,16 @@ const fetchSubCategories = async () => {
   })
             .map((sub) => (
 
-              <li
-                key={sub._id}
-                className="text-sm cursor-pointer hover:text-[#6e4352]"
-              >
-                {sub.subCategoryName}
-              </li>
+              <Link
+  key={sub._id}
+  to={`/sub-category/${sub.subCategoryName
+    .toLowerCase()
+    .replace(/\s+/g, "-")}`}
+  onClick={() => setMenuOpen(false)}
+  className="block text-sm hover:text-[#6e4352]"
+>
+  {sub.subCategoryName}
+</Link>
 
             ))}
 
